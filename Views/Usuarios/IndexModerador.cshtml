@@ -1,0 +1,43 @@
+﻿@model IEnumerable<EasyBanca.Models.Usuario>
+
+@{
+    ViewBag.Title = "Usuários";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Lista Geral de Usuários</h2>
+<h4>Usuários</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoUsuario)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoUsuario)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "DetailsModerador", "Usuarios", new { id = item.Codigo }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-search", @title = "Detalhar" })
+            @Html.ActionLink(" ", "IndexModerador", "Usuarios", new { id = item.Codigo }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-align-left", @title = "Atualizar", @disabled = "disabled" })
+            @Html.ActionLink(" ", "IndexModerador", "Usuarios", new { id = item.Codigo }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-remove-sign", @title = "Excluir", @disabled = "disabled" })
+            @*@Html.ActionLink(" ", "Edit", "Usuarios", new { id = item.Codigo }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-align-left", @title = "Atualizar", @disabled = "disabled" })
+            @Html.ActionLink(" ", "Delete", "Usuarios", new { id = item.Codigo }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-remove-sign", @title = "Excluir", @disabled = "disabled" })*@
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Logout", "Logout", "Usuarios")
+</p>

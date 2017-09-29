@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a7072f81fadd468a9c25da984121ccca" Name="Diagram1" ZoomLevel="47">
+        <EntityTypeShape EntityType="DbEasyBancaModel.Assunto" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbEasyBancaModel.Cidade" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbEasyBancaModel.Enquete" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbEasyBancaModel.Estado" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbEasyBancaModel.Materia" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbEasyBancaModel.MateriaSugerida" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbEasyBancaModel.Usuario" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DbEasyBancaModel.FK__Assunto__Materia__0FEC5ADD" ManuallyRouted="false" />
+        <AssociationConnector Association="DbEasyBancaModel.FK__Cidade__Estado_C__0B27A5C0" ManuallyRouted="false" />
+        <AssociationConnector Association="DbEasyBancaModel.FK__Enquete__Cidade___15A53433" ManuallyRouted="false" />
+        <AssociationConnector Association="DbEasyBancaModel.FK__Usuario__Cidade___12C8C788" ManuallyRouted="false" />
+        <AssociationConnector Association="DbEasyBancaModel.FK__MateriaSu__Enque__1C5231C2" ManuallyRouted="false" />
+        <AssociationConnector Association="DbEasyBancaModel.Usuario_Materia" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DbEasyBancaModel.Telefone" Width="1.5" PointX="10.5" PointY="1.375" />
+        <AssociationConnector Association="DbEasyBancaModel.FK__Telefone__Usuari__1F2E9E6D" />
+        <AssociationConnector Association="DbEasyBancaModel.Enquete_Materia" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

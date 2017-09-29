@@ -1,0 +1,288 @@
+﻿@using EasyBanca.Models.EntityDataModel;
+@model Enquete
+@{
+    ViewBag.Title = "Bem Vindo(a)";
+}
+
+@using (Html.BeginForm("Create", "Enquetes", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    if (null != Session[EasyBanca.Models.WebUtil.Constantes.SESSAO_RETORNO_ENQUETE])
+    {
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="color:#000;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-info-sign" style="margin-right:10px; color:green;"></i> Informação EasyBanca</h4>
+                    </div>
+                    <div class="modal-body">
+                        @Session[EasyBanca.Models.WebUtil.Constantes.SESSAO_RETORNO_ENQUETE].ToString()
+                    </div>
+                    <div class="modal-footer">
+                        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<input id="txtMensagemRetornoCadastro" type="hidden" value="@Session[EasyBanca.Models.WebUtil.Constantes.SESSAO_RETORNO_ENQUETE].ToString()" />*@
+        <script>
+            $('#myModal').modal('show');
+            //alert(document.getElementById('txtMensagemRetornoCadastro').value);
+        </script>
+        @*<br />
+        <article class="col-md-12" style="background-color:#5cb85c; color:#fff; padding:10px; border-radius:4px; opacity:0.9; margin-bottom:20px; font-size:14px;">
+            @Session[EasyBanca.Models.WebUtil.Constantes.SESSAO_RETORNO_ENQUETE].ToString()
+        </article>
+        <br />*@
+        Session.Remove(EasyBanca.Models.WebUtil.Constantes.SESSAO_RETORNO_ENQUETE);
+    }
+    <!--Qual e o seu email?-->
+    <article class="col-md-12" style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:4px; opacity:0.9; margin-top:10px; margin-bottom:5px;">
+        <label for="txtEmail">QUAL É O SEU EMAIL?</label>
+    </article>
+    <article class="col-md-12">
+        @Html.TextBoxFor(m => m.Email, new { @id = "txtEmail", @placeholder = "Ex.: nome@email.com", @class = "form-control input-lg text-center" })
+    </article>
+    <article style="font-size:12px; color:red; padding-left:2px; text-align:center;">
+        @Html.ValidationMessageFor(model => model.Email)
+    </article>
+    <!--Qual é o seu perfil?-->
+    <article class="col-md-12" style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:4px; opacity:0.9; margin-top:20px; margin-bottom:5px;">
+        QUAL É O SEU PERFIL?
+    </article>
+    <article class="btn-group" data-toggle="buttons">
+        <label class="btn btn-success active" onclick="document.getElementById('materiasInteresse').innerHTML = 'QUAIS SÃO SUAS MATÉRIAS DE INTERESSE?';">
+            <input type="radio" name="TipoUsuario" value="2" id="option1" autocomplete="off" checked> ALUNO
+        </label>
+        <label class="btn btn-success" onclick="document.getElementById('materiasInteresse').innerHTML = 'QUAIS SÃO AS MATÉRIAS PARA SEU FILHO?';">
+            <input type="radio" name="TipoUsuario" value="3" id="option2" autocomplete="off"> PAI/MÃE
+        </label>
+        <label class="btn btn-success" onclick="document.getElementById('materiasInteresse').innerHTML = 'QUAIS MATÉRIAS VOCÊ É TUTOR?';">
+            <input type="radio" name="TipoUsuario" value="4" id="option3" autocomplete="off"> TUTOR
+        </label>
+    </article>
+
+    <article class="col-md-12" style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:4px; opacity:0.9; margin-top:20px; margin-bottom:5px;">
+        <label for="ddlEstado">SUA LOCALIZAÇÃO APROXIMADA <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Esta é a sua localização aproximada pelo seu IP. Posteriormente, ao efetuar o seu cadastro, você poderá modificar este local quando quiser."></i></label>
+    </article>
+    <article class="col-md-12">
+        <input type="text" id="cidadeEstado" disabled class="form-control input-lg text-center" />
+        <input type="text" id="cidadeEstadoHide" name="CidadeEstado" class="hidden" />
+    </article>
+
+    <!--Qual é o seu estado?-->
+    @*<article class="col-md-12" style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:4px; opacity:0.9; margin-top:20px; margin-bottom:5px;">
+            <label for="ddlEstado">QUAL É O SEU ESTADO?</label>
+        </article>
+        <article class="col-md-12">
+            @Html.DropDownListFor(model => model.Estado_Codigo, new SelectList(ViewBag.ListaEstados, "Value", "Text"), "Selecione...", new { @id = "ddlEstado", @class = "form-control input-lg", @onchange = "getCidades('" + Url.Action("GetCidades") + "')", @data_val_number = "Informe o campo acima." })
+        </article>
+        <article style="font-size:12px; color:red; padding-left:2px; text-align:center;">
+            @Html.ValidationMessageFor(model => model.Estado_Codigo)
+        </article>*@
+    <!--Qual é a sua cidade?-->
+    @*<article class="col-md-12" style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:4px; opacity:0.9; margin-top:20px; margin-bottom:5px;">
+            <label for="ddlCidade">QUAL É A SUA CIDADE?</label>
+        </article>
+        <article class="col-md-12">
+            @Html.DropDownListFor(model => model.Cidade_Codigo, new SelectList(string.Empty, "Value", "Text"), "Selecione...", new { @id = "ddlCidade", @class = "form-control input-lg", @data_val_number = "Informe o campo acima." })
+        </article>
+        <article style="font-size:12px; color:red; padding-left:2px; text-align:center;">
+            @Html.ValidationMessageFor(model => model.Cidade_Codigo)
+        </article>*@
+    <!--Quais são suas matérias de interesse?-->
+    <article id="materiasInteresse" class="col-md-12" style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:4px; opacity:0.9; margin-top:20px; margin-bottom:5px;">
+        QUAIS SÃO SUAS MATÉRIAS DE INTERESSE?
+    </article>
+    <article class="col-md-12">
+        @{
+            for (int i = 0; i < Model.Materia.Count; i++)
+            {
+                <label class="checkbox-inline btn btn-success" onclick="adicionarMateriaSugestao(@i);" style="padding-left:30px; margin:5px;">@Html.CheckBoxFor(m => Model.Materia[i].Seleciondo, new { @id = "chkMateriaSugerida" + i }) @Model.Materia[i].Descricao</label>
+                        @Html.HiddenFor(m => Model.Materia[i].Codigo)
+                        @Html.HiddenFor(m => Model.Materia[i].Descricao, new { @id = "txtDescricaoMateria" + i })
+            }
+
+            <br />
+                    <article id="artMateriaSugerida" style="display:none">
+                        <!--Qual a matéria a sugerir?-->
+                        <article class="col-md-12" style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:4px; opacity:0.9; margin-top:20px; margin-bottom:5px;">
+                            <label id="txtMateriaSugerida">QUAL É A MATÉRIA A SUGERIR?</label>
+                        </article>
+                        @for (int i = 0; i < Model.MateriaSugerida.Count; i++)
+                {
+                            @Html.TextBoxFor(m => Model.MateriaSugerida[i].Descricao, new { @id = "txtMateriaSugerida", @placeholder = "Ex.: Dança, Música, Teatro.", @class = "form-control input-lg" })
+                        }
+                    </article>
+        }
+    </article>
+            <article class="col-md-12" style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:4px; opacity:0.9; margin-top:20px; margin-bottom:5px;">
+                <label for="CidadeEstado">ENVIE SUAS INFORMAÇÕES!</label>
+            </article>
+            <button onclick="enviarEmail();" class="btn input-lg btn-default btn-success form-control" style="font-family:Verdana; font-weight:bold; font-size:20px;">Enviar</button>
+            }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+    this.getLocation();
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:                
+                document.getElementById('txtMensagemModalErro').innerHTML = "Por favor, ative a Geolocalização para seguir na plataforma.";
+                $('#modalErros').modal('show');
+                //alert("Você deve ativar a Geolocalização para concluir o cadastro.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                document.getElementById('txtMensagemModalErro').innerHTML = "Falha na conexão.";
+                $('#modalErros').modal('show');
+                //alert("Falha na conexão.");
+                //alert("Informação de local não disponível.");
+                break;
+            case error.TIMEOUT:
+                document.getElementById('txtMensagemModalErro').innerHTML = "Falha na conexão.";
+                $('#modalErros').modal('show');
+                //alert("Falha na conexão.");
+                //alert("A requisição para obter o local excedeu o limite de tempo.");
+                break;
+            case error.UNKNOWN_ERROR:
+                document.getElementById('txtMensagemModalErro').innerHTML = "Falha na conexão.";
+                $('#modalErros').modal('show');
+                //alert("Falha na conexão.");
+                break;
+        }
+    }
+
+    function showPosition(position) {
+        var geocoder = new google.maps.Geocoder();
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var latlng = new google.maps.LatLng(lat, lng);
+        var cidade = null;
+        var estado = null;
+
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results)
+                if (results[1]) {
+                    //Endereço completo: alert(results[0].formatted_address);
+                    for (var i = 0; i < results[0].address_components.length; i++) {
+                        for (var b = 0; b < results[0].address_components[i].types.length; b++) {
+
+                            if (results[0].address_components[i].types[b] == "locality") {
+                                cidade = results[0].address_components[i].short_name;
+                                break;
+                            }
+
+                            if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+                                estado = results[0].address_components[i].short_name;
+                                break;
+                            }
+                        }
+                    }
+
+                    $('#cidadeEstado').val(cidade + ' / ' + estado); //long_name
+                    $('#cidadeEstadoHide').val(cidade + '|' + estado); //long_name
+                } else {
+                    document.getElementById('txtMensagemModalErro').innerHTML = "Falha na conexão.";
+                    $('#modalErros').modal('show');
+                    //alert("Falha na conexão.");
+                    //alert("Nenhum resultado encontrado.");
+                }
+            } else {
+                document.getElementById('txtMensagemModalErro').innerHTML = "Falha na conexão.";
+                $('#modalErros').modal('show');
+                //alert("Falha na conexão.");
+                //alert("Geocoder falhou: " + status);
+            }
+        });
+    }
+
+    function adicionarMateriaSugestao(index) {
+        try {
+            if ($('#txtDescricaoMateria' + index).val() != null && $('#txtDescricaoMateria' + index).val() != '' &&
+                $('#txtDescricaoMateria' + index).val().toUpperCase().trim() == 'Outra'.toUpperCase().trim()) {
+
+                if (document.getElementById('chkMateriaSugerida' + index).checked == true) {
+                    $('#artMateriaSugerida').attr('style', 'display:normal;');
+                } else {
+                    $('#artMateriaSugerida').attr('style', 'display:none;');
+                }
+            }
+        } catch (e) {
+            document.getElementById('txtMensagemModalErro').innerHTML = "Falha na conexão.";
+            $('#modalErros').modal('show');
+            //alert(e);
+        }
+    }
+
+    function getCidades(url) {
+        $("#ddlCidade").empty();
+        if (null != $("#ddlEstado").val() && '' != $("#ddlEstado").val()) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: { id: $("#ddlEstado").val() },
+                success: function (states) {
+                    $.each(states, function (i, state) {
+                        if (0 == state.Value) {
+                            $("#ddlCidade").append('<option value>' + state.Text + '</option>');
+                        } else {
+                            $("#ddlCidade").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                        }
+                    });
+                },
+                error: function (ex) {
+                    document.getElementById('txtMensagemModalErro').innerHTML = "Falha na conexão.";
+                    $('#modalErros').modal('show');
+                    //alert('Verifique sua conexão com a internet: ' + ex);
+                }
+            });
+        } else {
+            $("#ddlCidade").append('<option value>Selecione...</option>');
+        }
+        return false;
+    }
+
+    //$.getJSON('https://freegeoip.net/json/')
+    //         .done(function (location) {
+    //             $('#cidadeEstado').val(location.city + ' / ' + location.region_code);
+    //         });
+
+    $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
+</script>
+
+<!-- Modal Erros -->
+<div class="modal fade" id="modalErros" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="color:#000;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-alert" style="margin-right:10px; color:red;"></i> Alerta EasyBanca</h4>
+            </div>
+            <div class="modal-body">
+                <p id="txtMensagemModalErro"></p>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

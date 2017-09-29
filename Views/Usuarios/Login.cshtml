@@ -1,0 +1,50 @@
+﻿@model EasyBanca.Models.Usuario
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <article class="col-md-12">
+        <article class="col-md-2"></article>
+        <article class="col-md-8">
+            <article class="col-md-12">
+                <h2>Entre ou cadastre-se</h2>
+                <article class="form-control-row">
+                    @Html.TextBoxFor(m => m.Login, new { @class = "col-md-12 form-control", @placeholder = "Login ou Email", @autofocus = "autofocus", @required = "required" })
+                    <article class="validacao">
+                        @Html.ValidationMessageFor(model => model.Login)
+                    </article>
+                </article>
+                <br /><br />
+                <article class="form-control-row">
+                    @Html.PasswordFor(m => m.Senha, new { @class = "col-md-12 form-control", @placeholder = "●●●●●●●●●●●●", @required = "required" })
+                    <article class="validacao">
+                        @Html.ValidationMessageFor(model => model.Senha)
+                    </article>
+                </article>
+                <br /><br />
+                <article class="form-control-row">
+                    <button class="col-md-12 uk-button uk-button-primary uk-button-large form-control">Entrar</button>
+                </article>
+                <article class="form-control-row uk-text-small">
+                    <label class="uk-float-left">@Html.CheckBoxFor(m => m.Lembrar, new { @checked = "checked" }) Lembrar-me</label>
+                    <a class="uk-float-right uk-link uk-link-muted" href="#">Esqueceu sua senha?</a>
+                    <i style="padding-right:5px;" class="uk-float-right uk-link uk-link-muted">|</i>
+                    <a style="padding-right:5px;" class="uk-float-right uk-link uk-link-muted" href="#">Crie seu perfil</a>
+                </article>
+            </article>
+        </article>
+        <article class="col-md-2"></article>
+    </article>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,66 @@
+﻿@model EasyBanca.Models.EntityDataModel.Enquete
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Enquete de Usuários</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade.Descricao):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidade.Descricao) - @Html.DisplayFor(model => model.Estado.Abreviacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoUsuario):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoUsuario)
+        </dd>
+    </dl>    
+</div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Matérias:
+        </dt>
+
+        <dd>
+            @{
+                for (int i = 0; i < Model.Materia.Count; i++)
+                {
+                    if ("OUTRA" != Model.Materia[i].Descricao.ToUpper().Trim())
+                    {
+                        <label class="checkbox-inline btn btn-success" style="margin:5px;">@Model.Materia[i].Descricao</label>
+                    }
+                }
+                for (int i = 0; i < Model.MateriaSugerida.Count; i++)
+                {
+                    <label class="checkbox-inline btn btn-success" style="margin:5px;">@Model.MateriaSugerida[i].Descricao</label>
+                }
+            }
+        </dd>
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Codigo }) |*@
+    @Html.ActionLink("Voltar", "Index")
+</p>

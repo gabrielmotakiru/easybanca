@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyBanca</title>
+    <!-- Custom Fonts -->
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/cssjquery")
+    @Scripts.Render("~/bundles/jquery")    
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquerydatatables")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+@if (null != Session[EasyBanca.Models.WebUtil.Constantes.SESSAO_MENSAGEM])
+{
+    <article class="bg-success">
+        @Session[EasyBanca.Models.WebUtil.Constantes.SESSAO_MENSAGEM].ToString()
+    </article>
+    Session.Remove(EasyBanca.Models.WebUtil.Constantes.SESSAO_MENSAGEM);
+}
+
+
+
+    @*<!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Navegação</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav page-scroll text-center" href="#cabecalho" style="padding:5px; margin:0px;">
+                    <img src="~/Content/img/icone.png" width="40" height="40" class="text-center" style="border-radius:10px; border: 3px solid #333" />
+                </a>
+                <a class="navbar-brand topnav page-scroll text-center" href="#cabecalho" style="margin-left:0px; font-family: Tahoma; font-size:22px; color:#0c5f17">
+                    EasyBanca
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right" style="font-size:18px;">
+                    <li>
+                        <a class="page-scroll" href="#sobre" style="color:#0c5f17;"><i class="glyphicon glyphicon-globe"></i> Sobre</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#servicos" style="color:#0c5f17;"><i class="glyphicon glyphicon-th-large"></i> Serviços</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contato" style="color:#0c5f17;"><i class="glyphicon glyphicon-envelope"></i> Contato</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!-- Header -->
+    <header id="cabecalho" class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1>EasyBanca</h1>
+                        <h3 style="background-color:#06cc20; opacity:0.7; border-radius:5px; padding:20px;">QUER ENCONTRAR OS MELHORES TUTORES PARA REFORÇO ESCOLAR?</h3>
+                        <!--<h4 for="txtEmail" class="text-primary">Informe seu email abaixo!</h4>-->
+                        <hr class="intro-divider" style="margin-top:0px;">
+                        <article class="col-md-12">
+                            <article class="col-md-4"></article>
+                            <article class="col-md-4 text-center">
+                                <form>
+                                    <input id="txtEmail" placeholder="seuemail@provedor.com" type="text" autofocus class="form-control input-lg" />
+                                    <br />
+                                    <article style="background-color:#fff; color:#0c5f17; padding:2px; border-radius:10px; opacity:0.8;">
+                                        <label style="font-weight:bold;" class="radio-inline"><input type="radio" checked name="optradio">Sou Aluno</label>
+                                        <label style="font-weight:bold;" class="radio-inline"><input type="radio" name="optradio">Sou Pai/Mãe</label>
+                                        <label style="font-weight:bold;" class="radio-inline"><input type="radio" name="optradio">Sou Tutor</label>
+                                    </article>
+                                    <br />
+                                    <button onclick="enviarEmail();" class="btn input-lg btn-default btn-success form-control" style="font-family:Verdana; font-weight:bold; font-size:20px;">Envie seu email</button>
+                                </form>
+                            </article>
+                            <article class="col-md-4"></article>
+                        </article>
+                        <article class="col-md-12">
+                            <hr class="intro-divider">
+                            <ul class="list-inline intro-social-buttons">
+                                <li>
+                                    <a href="https://twitter.com/easybanca" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com/easybanca/" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-fw"><img src="~/Content/img/facebook.png" width="20" /></i> <span style="padding-left:10px;" class="network-name">Facebook</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/company/easybanca" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/easybanca/" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-fw"><img src="~/Content/img/instagram.png" width="20" /></i> <span style="padding-left:10px;" class="network-name">Instagram</span></a>
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </header>
+    <!-- /.intro-header -->
+    <!-- Sobre -->
+    <section id="sobre" class="content-section-b">
+        <div class="container">
+            <h1 class="text-center">Sobre Nós</h1>
+            <h3 class="text-center">Nosso objetivo é ajudar alunos com problemas de educação na escola.</h3>
+            <!--EasyBanca é uma empresa startup fundada para desenvolver um aplicativo com o objetivo de ajudar os alunos com problemas de educação na escola. Ele vai encontrar os seus melhores professores: em estudantes de graduação e jovens com potencial e conhecimento. Os estudantes interessados irá registrar suas demandas eo aplicativo irá gerar a lista ideal de tutores em torno deles, classificados por experiência e satisfação ratings. -->
+            <br /><br /><br /><br /><br /><br />
+            <ul class="timeline">
+                <li>
+                    <div class="timeline-image">
+                        <img class="img-circle img-responsive" src="~/Content/img/about/1.jpg" alt="">
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>Novembro de 2015</h4>
+                            <h4 class="subheading">O EasyBanca abriu o tour da Bel Pesce aqui em Salvador</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p class="text-muted">
+                                Os insights que a gente recebeu foram excelentes,
+                                agora mais trabalho pra colocar o projeto funcionando.
+                                Muito obrigado aos apoiadores! <br />
+                                ‪#‎vai‬ ‪#‎easybanca‬ ‪#‎app‬ ‪#‎educação‬
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-image">
+                        <img class="img-circle img-responsive" src="~/Content/img/about/3.jpg" alt="">
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>Dezembro de 2015</h4>
+                            <h4 class="subheading">Pré-aceleração negócios sociais Choice Up</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p class="text-muted">
+                                Tivemos o privilégio de participar do programa de pré-aceleração
+                                de negócios sociais Choice Up, promovido pela galera fera
+                                do movimento Choice aqui de Salvador!
+
+                                Muita coisa desenvolvida, redesenhada, e também MUITO trabalho pela frente!
+                                Agradecemos o apoio da Artemisia por patrocinar a causa!
+                                E um salve para essa turma excelente!
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="timeline-image">
+                        <img class="img-circle img-responsive" src="~/Content/img/about/4.jpg" alt="">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="~/Content/img/about/4_1.jpg" alt="">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="~/Content/img/about/4_2.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>Janeiro de 2016</h4>
+                            <h4 class="subheading">Formação completa do time</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p class="text-muted">
+                                Fechamos o ano com a formação do nosso time de diretores completa!
+                                Aproveitamos para começar 2016 com todo o gás!
+                                <br /><br />
+                                Na 1ª imagem: nosso CEO - <a href="https://www.linkedin.com/in/jspedreira" target="_blank">Jonathan Pedreira</a>.
+                                <br />
+                                Na 2ª imagem: nosso COO - <a href="https://br.linkedin.com/in/dourizete-castro-pereira-0bb0585b" target="_blank">Douri Castro</a>.
+                                <br />
+                                Na ultima imagem: nosso CTO - <a href="https://www.linkedin.com/in/gabriel-souza-34144297" target="_blank">Gabriel Souza</a>.
+                                <br /><br />
+                                EasyBanca é uma empresa startup fundada para desenvolver um aplicativo
+                                com o objetivo de ajudar os alunos com problemas de educação na escola.
+                                Ele vai encontrar os seus melhores tutores: em estudantes de graduação
+                                e jovens com potencial e conhecimento.
+                                Os estudantes interessados irão registrar suas demandas e o aplicativo
+                                irá gerar a lista ideal de tutores em torno deles, classificados por
+                                experiência e satisfação.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted" style="margin-top:200px;">
+                    <div class="timeline-image" style="background-color:#06cc20;">
+                        <h4>
+                            Faça Parte
+                            <br>Dessa
+                            <br>Historia!
+                        </h4>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="content-section-a">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Aulas e reforço escolar para<br>aprender mais</h2>
+                    <p class="lead">
+                        Você que está procurando aulas e reforço escolar, você encontrou o lugar certo!
+                        <a class="page-scroll" href="#cabecalho" onclick="document.getElementById('txtEmail').focus();">Envie seu email</a> e entraremos em contato em breve!
+                    </p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6" style="border:20px solid #333; border-radius:10px;">
+                    <img class="img-responsive" src="~/Content/img/ipad.png" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+    <section class="content-section-b">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Não importa a sua idade, aqui <br>você encontra seu tutor</h2>
+                    <p class="lead">
+                        Aqui não importa a sua idade, mas sim a sua necessidade, seja você aluno,
+                        tutor, pai ou mãe. Encontre o que você precisa em nossa plataforma,
+                        <a class="page-scroll" href="#cabecalho" onclick="document.getElementById('txtEmail').focus();">cadastre</a> o seu email já.
+                    </p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6" style="border:20px solid #333; border-radius:10px;">
+                    <img class="img-responsive" src="~/Content/img/dog.png" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+    <section class="content-section-a">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Estude e divirta-se, <br /> poste #Easybanca</h2>
+                    <p class="lead">Além de estudar, tire um tempo para se divertir, e por que não fazer amigos? Poste suas selfies com <a target="_blank" href="https://twitter.com/easybanca">#EasyBanca</a> e mostre a seus amigos como é bom estudar.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6" style="border:20px solid #333; border-radius:10px;">
+                    <img class="img-responsive" src="~/Content/img/phones.png" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 text-right">
+                    <h2>Conecte-se:</h2>
+                </div>
+                <div class="col-lg-8">
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://twitter.com/easybanca" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/easybanca/" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-fw"><img src="~/Content/img/facebook.png" width="20" /></i> <span style="padding-left:10px;" class="network-name">Facebook</span></a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/company/easybanca" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/easybanca/" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-fw"><img src="~/Content/img/instagram.png" width="20" /></i> <span style="padding-left:10px;" class="network-name">Instagram</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+    <!-- /.banner -->
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a class="page-scroll" href="#cabecalho">Início</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#sobre">Sobre</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#servicos">Serviços</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#contato">Contato</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; EasyBanca 2016. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>*@
+
+    <article class="col-md-3"></article>
+    <article class="col-md-6">@RenderBody()</article>    
+    <article class="col-md-3"></article>    
+</body>
+</html>
